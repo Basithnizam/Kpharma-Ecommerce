@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OTP Verification</title>
+</head>
+<body>
+    <h1>OTP Verification</h1>
+    <p>Please enter the OTP sent to <strong><%= mobileNumber %></strong></p>
+    <form action="/otpVerify" method="post" >
+        <input type="text" name="otp" placeholder="Enter OTP" required>
+        <button type="submit">Verify OTP</button>
+    </form>
+    <span><h1><%= failed %></h1></span>
+</body>
+</html>

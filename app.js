@@ -4,19 +4,21 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const connectMongo = require('./app/controller/configDb.js');
+const session = require('express-session');
 require('dotenv').config()
+
 
 
 
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
-const { Collection } = require('mongoose');
+// const { Collection } = require('mongoose');
 
 var app = express();
 
 
 //MongoDB Connection
-const connection = connectMongo(process.env.MONGODB_URI)
+connectMongo(process.env.MONGODB_URI)
 
 
 
@@ -33,6 +35,11 @@ app.use(cookieParser())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 // Session and Cookie
+app.use(session({
+  secret: 'your-secret-key', // Replace with a secret key for session encryption
+  resave: false,
+  saveUninitialized: true
+}));
 
 
 app.use('/admin', adminRouter);

@@ -10,6 +10,7 @@ router.route('/signUp')
 
 router.route('/otpVerify')
 .get(userFn.otpVerify)
+.post(userFn.otpVerification)
 
 
 
