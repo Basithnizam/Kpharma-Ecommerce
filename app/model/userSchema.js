@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const moment = require('moment');
+
 
 
 
@@ -21,8 +23,14 @@ const userSchema = new Schema({
     }],
     blocked: Boolean,
     profilePic:String ,
-    walletId:String 
-    // created_at: { type: String, default: () => { return moment(new Date()).format('DD/MM/YYYY') }}
+    walletId:String, 
+    signupDate: {
+        type: Date,
+        default: Date.now, // Set the default value to the current date and time
+        
+      },
+    created_at: { type: String, default: () => { return moment(new Date()).format('DD/MM/YYYY') }}
+
 });
 
 const user = mongoose.model('USERS', userSchema);

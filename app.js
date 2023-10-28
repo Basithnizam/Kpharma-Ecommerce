@@ -23,7 +23,9 @@ connectMongo(process.env.MONGODB_URI)
 
 
 // view engine setup
-app.set('views', path.join(__dirname, 'app/views/user'));
+// app.set('views', path.join(__dirname, 'app/views/user'));
+app.set('views', [__dirname + '/app/views/user', __dirname + '/app/views/admin']);
+
 app.set('view engine', 'ejs');
 
 
