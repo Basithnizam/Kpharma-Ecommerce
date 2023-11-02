@@ -88,6 +88,7 @@ module.exports = {
     otpVerification: (req, res) => {
         console.log('Otp comming with the req is : ', req.session.otp)
         console.log('user data comming with the req is : ', req.session.userData)
+        let mobileNumber = req.session.userData.phone
         const userInputOtp = parseInt(req.body.otp);
         const storedOtp = parseInt(req.session.otp);
         console.log("userInput : " + userInputOtp + " storeotp : " + storedOtp)

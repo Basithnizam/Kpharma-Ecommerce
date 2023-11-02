@@ -1,0 +1,171 @@
+<%-include('../layouts/adminPartials/adminHeader.ejs') %>
+
+
+
+
+
+
+<script
+src="https://code.jquery.com/jquery-3.7.1.js"
+integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- ----------------------SEARCH QUARY------------------------- -->
+    <script>
+        $(document).ready(function () {
+            $("#myInput").on("change", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+<!-- --------------------------Filter QUARY--------------------------- -->
+<script>
+    $(document).ready(function() {
+      $('#categoryFilter').on('change', function() {
+        const selectedCategoryId = $(this).val();
+        console.log('fromFilter :',selectedCategoryId)
+  
+        $('tbody tr').each(function() {
+          const productCategoryId = $(this).data('category-id');
+          console.log('formRow:',productCategoryId);
+          if (!selectedCategoryId || productCategoryId === selectedCategoryId) {
+            $(this).show();
+          } else {
+            $(this).hide();
+          }
+        });
+      });
+    });
+  </script>
+
+<!-- <script>
+    $(document).ready(function () {
+        $("#categoryFilter").on("change", function () {
+            var selectedCategory = $(this).val();
+
+            $("#myTable tr").each(function () {
+                var productCategory = $(this).find(".product-category").text().toLowerCase();
+                if (selectedCategory === "all" || productCategory === selectedCategory) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    });
+</script> -->
+
+
+
+
+
+    <div class="container   my-5">
+
+        <div class=" row">
+            
+
+            <div class="text-light p-3 fw-bold d-flex justify-content-center">
+                <h1 class="fw-bold text-dark h1">PRODUCT LIST</h1>
+            </div>
+            <div class="">
+                <input class="form-control border border-primary bg-dark text-light " id="myInput" type="text" placeholder="Search..">
+            </div>
+
+            
+            <br>
+            
+
+            <div class="table-responsive">
+
+
+                <table class="table table-dark table-bordered my-2 bg-dark  ">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th >Product Name</th>
+
+
+                            <th>
+
+
+                            <div class="container ">
+                                <div class="form-group">
+                                    <label for="categoryFilter">Filter by Category:</label>
+                                    <select class="form-control" id="categoryFilter">
+
+                                        <% products.forEach(function(datas,index) { %>
+                                            
+                                        <option value="datas.category.category"><%= datas.category.category %></option>
+
+                                        <% }); %>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            
+
+
+
+
+
+
+
+
+                            </th>
+                            <th>Price</th>
+                            <th>Instock</th>
+                            <th class="d-flex justify-content-center"><a href="/admin/addProduct" class="btn btn-warning ">Add Products </a></th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTable">
+                        <% products.forEach(function(datas,index) { %>
+                        <tr>
+                           
+
+                            <td><img class="img-fluid " style="width: 40px; height: 50px;" src="/images/uploads/productImages/<%= datas.productImage %>" alt="image Not avilable"></td>
+                            <td><%= datas.productName %></td>
+                            <td class="category-id" id="category-id" ><%= datas.category.category %></td>
+                            <td><%= datas.productPrice %></td>
+                            <td><%= datas.inStock %></td>
+                            <td class="d-flex justify-content-center p-2 ">
+                                
+                                <a class="btn bg-primary img-fluid"  href="/admin/viewProduct/<%= datas._id %>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                <a class="btn bg-warning mx-1" href="/admin/editProduct/<%= datas._id %>""><i class="fas fa-edit"></i></a>
+                                <a class="btn btn-danger" href="/admin/deleteProduct/<%= datas._id %>""><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            </td>
+                           
+                        </tr>
+                        <% }); %>
+                        
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+    </div>
+        
+
+
+
+
+
+
+
+        <%-include('../layouts/adminPartials/footer.ejs') %>

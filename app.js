@@ -3,9 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const connectMongo = require('./app/controller/configDb.js');
+const connectMongo = require('./configuration/configDb.js');
 const session = require('express-session');
 require('dotenv').config()
+var flash = require('connect-flash');
+
+
 
 
 
@@ -30,6 +33,7 @@ app.set('view engine', 'ejs');
 
 
 
+app.set('view cache', false);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -42,6 +46,8 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+app.use(flash())
+
 
 
 app.use('/admin', adminRouter);

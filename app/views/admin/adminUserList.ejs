@@ -1,0 +1,95 @@
+<%-include('../layouts/adminPartials/adminHeader.ejs') %>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
+
+
+    <div class="container   my-5">
+
+        <div class=" row">
+            
+
+            <div class="text-light p-3 fw-bold d-flex justify-content-center">
+                <h1 class="fw-bold text-dark h1">USER LIST</h1>
+            </div>
+            <div class="">
+                <input class="form-control border border-primary bg-dark text-light " id="myInput" type="text" placeholder="Search..">
+            </div>
+
+            
+            <br>
+
+            <div class="table-responsive">
+
+
+                <table class="table table-dark table-bordered my-2 bg-dark  ">
+                    <thead>
+                        <tr>
+                            
+                            <th >User Name</th>
+                            <th>Email</th>
+                            <th>Mobile No</th>
+                            <th>Status</th>
+                            <th class="d-flex justify-content-center"><a href="" class="btn btn-warning ">No Functions</a></th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTable">
+                        <% users.forEach(function(datas,index) { %>
+
+                        <tr>
+                           
+                            
+                            <td><%= datas.name %></td>
+                            <td><%= datas.email %></td>
+                            <td><%= datas.phone %></td>
+                            <td><a class="btn btn-danger" href="/admin/blockUser/<%= datas._id %>"><i class="fas fa-ban"></i></a></td>
+                            <td class="d-flex justify-content-around p-2 ">
+                                
+                                <a class="btn bg-primary" href="/admin/viewUser/<%= datas._id %>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                
+                                
+                            </td>
+                            
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+    </div>
+        <script>
+            $(document).ready(function () {
+                $("#myInput").on("keyup", function () {
+                    var value = $(this).val().toLowerCase();
+                    $("#myTable tr").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            });
+        </script>
+
+
+
+
+
+
+
+        <%-include('../layouts/adminPartials/footer.ejs') %>

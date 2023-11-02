@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+    <link rel="icon" href="images/dp.jpeg" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body style="background: #EFD2AF;  ">
+    <div style="min-height: 100vh; "  >
+
+    <header class=" sticky-top z-1 ">
+        <div style="background: #94260E; ">
+            <div class="row text-light container-fluid d-flex align-items-center ">
+                <span class="col-3 p-3 "> <%-include('./adminSideDrawer.ejs') %></span>
+                <div class="p-3 ps-5 d-flex col-9  ">
+                    
+                    <h2 class="fw-bold" style="font-size: 2.5rem;">Admin Dashboard</h2>
+                </div>
+            </div>
+        </div>
+        <!-- _____________________________Positive alert___________________________________ -->
+        <div class="alert alert-success d-flex justify-content-center align-items-center pt-3 p-2  sticky-top z-1 d-none "
+            role="alert" id="success">
+
+            <p  class="pe-3">A simple success alert—check it out! Redirecting to HOME  </p>  
+            <div class="spinner-border text-success " role="status">
+                <div class="visually-hidden ">Loading...</div>
+            </div>
+
+        </div>
+        <!-- ____________________________________Error alert___________________________________ -->
+
+        <div id="error" class="alert alert-danger d-flex justify-content-center align-items-center  sticky-top z-1 d-none " role="alert">
+           Error: A simple danger alert—check it out!
+          </div>
+          <!-- __________________________________alert end_______________________________________ -->
+    </header>
+
+        <div class="d-flex p-2 justify-content-between ">
+            <a href="/admin"><button type="button" class="btn btn-primary btn-lg  m-2 w-90%">HOME</button></a>
+            <a href="#"><button type="button" class="btn btn-danger btn-lg  m-2 w-90%">LOGOUT</button></a>
+        </div>
+    
+    <div class="container-fluid ">
+        <div class="row d-flex  justify-content-between px-2">
+            <div class="col-md-4">
+                <a href="/admin/user" class="text-decoration-none"><button
+                        class="b-btn d-flex justify-content-center align-items-center fw-bold w-100 p-2 mx-1 h2  bg-warning  bg-gradient rounded-pill "
+                        style=" box-shadow: 8.10521px 12.15782px 8.10521px 1.01315px rgba(0, 0, 0, 0.50);">USERS</button></a>
+            </div>
+
+            <div class="col-md-4">
+                <a href="/admin/product" class="text-decoration-none"><button
+                        class="b-btn d-flex justify-content-center align-items-center fw-bold w-100 p-2 mx-1 h2  bg-success bg-gradient rounded-pill"
+                        style=" box-shadow: 8.10521px 12.15782px 8.10521px 1.01315px rgba(0, 0, 0, 0.50);">PRODUCTS</button></a>
+            </div>
+
+            <div class="col-md-4">
+                <a href="" class="text-decoration-none"><button
+                        class="b-btn d-flex justify-content-center align-items-center fw-bold w-100 p-2 mx-1 h2  bg-primary bg-gradient rounded-pill"
+                        style=" box-shadow: 8.10521px 12.15782px 8.10521px 1.01315px rgba(0, 0, 0, 0.50);">ORDERS</button></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ______________________head_________________ -->

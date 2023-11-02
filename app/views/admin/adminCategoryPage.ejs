@@ -1,0 +1,75 @@
+<%-include('../layouts/adminPartials/adminHeader.ejs') %>
+
+
+<div  style="min-height: 100vh; height: fit-content;">
+    <div class="d-flex justify-content-center py-3" >
+        <div class=" col-md-9 col-sm-11 p-4">
+            <h1 class="d-flex justify-content-center fw-bold pb-3">CATEGORIES</h1>
+            <nav class="navbar   bg-dark ">
+                <form class="d-flex justify-content-between flex-grow-1 ps-2 " method="post"
+                    action="/admin/search">
+                    
+                    <input name="searchQuery" id="myInput" class="flex-grow-1 " type="text"
+                        placeholder="Enter the keyword for search" aria-label="Search">
+
+                    <button style="margin-inline-start:2rem;margin-inline-end:1rem; padding-inline: 2rem;"
+                        class=" btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+
+                </form>
+
+
+
+            </nav>
+            
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th>Index No.</th>
+                        <th>Category Name</th>
+                        <th>Created At</th>
+                        
+
+                        <th class="d-flex justify-content-end"><a href="/admin/addCategory"><button style="padding-inline: 2rem;"
+                                    class=" btn btn-warning my-2 my-sm-0 py-1 ">New Category</button></a>
+                        </th>
+
+                    </tr>
+                </thead>
+
+                <tbody id="myTable">
+                    <% data.forEach(function(datas,index) { %>
+
+                    <tr class="">
+                        <!-- Add 1 to @index to start serial number from 1 -->
+                        <td> <%= index + 1 %></td>
+                        <td> <%= datas.category %></td>
+                        <td> <%= datas.created_at %></td>
+                       
+
+                        <td class="d-flex justify-content-end">
+                            
+                            <a href="/admin/editCategory/<%= datas._id %>"
+                                onclick="return confirm('Are you sure you want to Edit  this Category?')"><button
+                                    class="btn btn-warning me-2">Edit</button></a>
+                            <a href="/admin/deleteCategory/<%= datas._id %>"
+                                onclick="return confirm(`Don't delete category, which may affect the product's categroy`)"><buttonD
+                                    class="btn btn-danger">Delete</button></a>
+
+                        </td>
+                    </tr>
+                    <% }); %>
+                    
+
+                </tbody>
+            </table>
+
+
+
+
+
+        </div>
+    </div>
+
+</div>
+
+<%-include('../layouts/adminPartials/footer.ejs') %>
