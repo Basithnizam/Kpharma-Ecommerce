@@ -1,25 +1,26 @@
+const user = require('../app/model/userSchema');
 
-module.exports ={
-    adminAuth:(req,res,next)=>{
-        if(req.session.admin){
-            console.log("Admin is Alive...")
-            
 
+module.exports = {
+    adminAuth: (req, res, next) => {
+        if (req.session.admin) {
             next();
-        }else{
-            console.log("Admin is Dead...")
+        } else {
             res.redirect('/admin/login')
-            // next('route')
         }
     },
-    userAuth:(req,res,next)=>{
-        if(req.session.user){
-            console.log("User is Alive...")
-            next();
-        }else{
-            console.log("User is Dead...")
-            res.redirect('/login')
+    userAuth: async (req, res, next) => {
+        try {
+            if (req.session.user) {
+                next();
+                
+            } else {
+                console.log("User is Dead...")
+                res.redirect('/login')
+            }
+        } catch (error) {
+            console.error('Error: ', error)
+
         }
     }
-
 }

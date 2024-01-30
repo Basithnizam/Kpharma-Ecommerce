@@ -1,4 +1,10 @@
 <%-include('../layouts/adminPartials/adminHeader.ejs') %>
+<% if (databaseError.length>0){ %>
+    <div id="error" class="alert alert-danger d-flex justify-content-center align-items-center  sticky-top z-1  " role="alert">
+           <%= databaseError %>
+    </div>
+
+<% } %>
 
 
 <div style="min-height: 100vh ;">

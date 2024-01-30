@@ -8,7 +8,20 @@ const categorySchema = new mongoose.Schema({
         uppercase:true,
         unique:true
     },
-    created_at: { type: String, default: () => { return moment(new Date()).format('DD/MM/YYYY') }}
+    catDescirption:{
+        type:String,
+        required:true,
+
+    },
+    categoryImage:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    created_at: { 
+        type: String, 
+        default: () => { return moment(new Date()).format('DD/MM/YYYY') }
+    }
 })
 
 const category = mongoose.model('category',categorySchema);

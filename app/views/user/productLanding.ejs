@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USER</title>
+    <link rel="icon" href="images/dp.jpeg" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<%-include('../layouts/userPartials/userHeader.ejs') %>
+
+
+<section class=" p-4  " style="background-color: #EE9393;">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-12 col-xl-11">
+          <div class="card text-black" style="border-radius: 25px;">
+            <div class="card-body p-md-5">
+              <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+  
+                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4"><u><%= PRODUCT.productName %> </u></p>
+  
+                  <div class="mx-1 mx-md-4" action="/signUp" method="post">
+  
+                    <div class="d-flex flex-row align-items-center mb-4">
+                        
+                      <div class="form-outline flex-fill mb-0">
+                        
+                        
+                        <p class="fw-bold h3"><%= PRODUCT.productName %></p>
+                      </div>
+                    </div>
+
+                    <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fa fa-money p-4" aria-hidden="true"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <h4 class="mb-1 me-1"><%= PRODUCT.productPrice %></h4>
+                        <span class="text-danger"><span class="text-dark">MRP:</span> <s><%= PRODUCT.productMrp %></s></span>
+                      </div>
+                    </div>
+                    <h6 class="text-success pb-4 ps-4">Free shipping</h6>
+  
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      
+                      <div class="form-outline flex-fill mb-0">
+                        <p><%= PRODUCT.description %></p>
+                      </div>
+                    </div>
+
+                    <div class=" d-flex flex-row align-items-center  mx-4 mb-3 mb-lg-4">
+                      <button  class="btn btn-primary me-3 btn-lg">Add to Cart</button>
+                      <button  class="btn btn-success btn-lg">Buy Now</button>
+                    </div>
+  
+                </div>
+  
+            </div>
+            <div class="col-md-10 col-lg-6 col-xl-7 d-flex p-4 align-items-center justify-content-center order-lg-2">
+                <img src="/images/uploads/productImages/<%= PRODUCT.productImage %>"
+                  class="img-fluid"
+                  alt="Sample image"
+                  style="
+                    transition: transform 0.3s ease-in-out; /* Add a smooth transition effect */
+                    cursor: zoom-in; /* Change the cursor to indicate interactivity */
+                  "
+                  onmouseover="this.style.transform = 'scale(1.1)';"
+                  onmouseout="this.style.transform = 'scale(1)';"
+                  onclick="this.style.transform = 'scale(1.5)';" 
+                >
+              </div>
+              
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<%-include('../layouts/userPartials/userFooter.ejs') %>

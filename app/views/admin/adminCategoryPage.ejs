@@ -25,6 +25,7 @@
                 <thead>
                     <tr>
                         <th>Index No.</th>
+                        <th>Image</th>
                         <th>Category Name</th>
                         <th>Created At</th>
                         
@@ -42,6 +43,7 @@
                     <tr class="">
                         <!-- Add 1 to @index to start serial number from 1 -->
                         <td> <%= index + 1 %></td>
+                        <td><img  class="img-fluid  " style="width: 2rem;" src="/images/uploads/categoryImages/<%= datas.categoryImage %>" alt=""></td>
                         <td> <%= datas.category %></td>
                         <td> <%= datas.created_at %></td>
                        
@@ -58,8 +60,6 @@
                         </td>
                     </tr>
                     <% }); %>
-                    
-
                 </tbody>
             </table>
 

@@ -1,4 +1,12 @@
 <%-include('../layouts/adminPartials/adminHeader.ejs') %>
+<% if (blockerror.length>0){ %>
+    <div id="error" class="alert alert-danger d-flex justify-content-center align-items-center  sticky-top z-1 d-none " role="alert">
+           <%= blockerror %>
+    </div>
+
+<% } %>
+
+
 
 
 
@@ -33,6 +41,8 @@
                             <th>Email</th>
                             <th>Mobile No</th>
                             <th>Status</th>
+
+                            
                             <th class="d-flex justify-content-center"><a href="" class="btn btn-warning ">No Functions</a></th>
                         </tr>
                     </thead>
@@ -45,12 +55,19 @@
                             <td><%= datas.name %></td>
                             <td><%= datas.email %></td>
                             <td><%= datas.phone %></td>
-                            <td><a class="btn btn-danger" href="/admin/blockUser/<%= datas._id %>"><i class="fas fa-ban"></i></a></td>
+                             
+                            <% if(!datas.blocked){ %>
+                                <td><a class="btn btn-success"  href="/admin/blockUser/<%= datas._id %>"><i class="fa fa-check" aria-hidden="true"></i></a></td>
+                              <% } else{ %>  
+                                <td><a class="btn btn-danger" href="/admin/blockUser/<%= datas._id %>"><i class="fas fa-ban"></i></a></td>
+                                
+                             <% } %>
+
+                            
                             <td class="d-flex justify-content-around p-2 ">
                                 
                                 <a class="btn bg-primary" href="/admin/viewUser/<%= datas._id %>"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                
-                                
+                           
                             </td>
                             
                         </tr>

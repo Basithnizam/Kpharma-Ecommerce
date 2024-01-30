@@ -10,8 +10,12 @@ const productSchema = new mongoose.Schema({
     category: { 
         type: Schema.Types.ObjectId, 
         ref: 'category',
-        required: true },
-
+        required: true 
+    },
+    productMrp:{
+        type: Number,
+        required: true
+    },
     productPrice: {
         type: Number,
         required: true
@@ -35,6 +39,13 @@ const productSchema = new mongoose.Schema({
         type: String, default: () => { return moment(new Date()).format('DD/MM/YYYY') } 
     },
 })
+productSchema.pre('validate', function(next) {
+    if (this.productMrp < this.productPrice) {
+        const error = new Error('productMrp must be greater than or equal to productPrice');
+        return next(error);
+    }
+    next();
+});
 
 const product = mongoose.model('products', productSchema);
 

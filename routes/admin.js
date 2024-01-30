@@ -49,6 +49,9 @@ router.route('/deleteProduct/:id')
 router.route('/editProduct/:id')
 .get(adminFn.editProduct)
 
+router.route('/updateProduct/:id')
+.post(config.upload.single('productImage'),adminFn.updateProduct)
+
 router.route('/viewProduct/:id')
 .get(adminFn.editProduct)
 
@@ -64,19 +67,27 @@ router.route('/category')
 
 
 router.route('/addCategory')
+
 .get(adminFn.viewAddCategory)
-.post(adminFn.addCategory)
+.post(config.upload1.single('categoryImage') ,adminFn.addCategory)
 
 router.route('/deleteCategory/:id')
 .get(adminFn.deleteCategory) 
 
 router.route('/editCategory/:id')
 .get(adminFn.editCategory)
-.post(adminFn.updateCategroy)
+.post(config.upload1.single('categoryImage') ,adminFn.updateCategroy)
 
 // --------USERS-------
 router.route('/user')
 .get(adminFn.viewUserList)
+
+
+router.route('/blockUser/:id')
+.get(adminFn.blockUser)
+
+router.route('/testcat')
+.get(adminFn.testcat)
 
 
 

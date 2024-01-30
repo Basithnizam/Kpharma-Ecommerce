@@ -10,60 +10,113 @@
 
 </head>
 
-<body >
+<body>
 
     <div class="row border ">
         <div class="col-3 p-4 d-flex"><%-include('../layouts/adminPartials/adminSideDrawer.ejs') %></div>
-        <div class="col-5 d-flex justify-content-center"><img style="height: 50px; margin: 1rem; " src="/images/KPharmakPharmaLogo.png" alt="LOGO"></div>
-        <div class="col-4 py-4 d-flex justify-content-end"><a href="#!"><button type="button" class="btn btn-primary">ADMIN</button></a></div>
-        
+        <div class="col-5 d-flex justify-content-center"><img style="height: 50px; margin: 1rem; "
+                src="/images/KPharmakPharmaLogo.png" alt="LOGO"></div>
+        <div class="col-4 py-4 d-flex justify-content-end"><a href="#!"><button type="button"
+                    class="btn btn-primary">ADMIN</button></a></div>
+
     </div>
-    <div></div>
-    <div class="bg-light  ">
-        <div class="d-flex justify-content-center pt-5 text-primary"><h1><u>ADMIN LOGIN</u></h1></div>
 
 
-
-
-    <div class="p-5 container container-fluid d-flex justify-content-center " >
-        <section class="  " >
-            <form action="login" method="post">
-                <!-- Email input -->
-                <div class="form-outline mb-4">
-                    <input type="email" id="form2Example1" class="form-control" name="Email" required />
-                    <label class="form-label" for="form2Example1">Email address</label>
-                </div>
-    
-                <!-- Password input -->
-                <div class="form-outline mb-4">
-                    <input type="password" id="form2Example2" class="form-control" name="Password" required />
-                    <label class="form-label" for="form2Example2">Password</label>
-                </div>
-    
-                <!-- Submit button -->
-                <div>
-                    <button type="button submit" class="btn btn-primary btn-block mb-4">Sign in</button>
-                </div>
-                
-    
-                
-            </form>
-            <!-- Register buttons -->
-            <div class="text-center">
-                <p>Not an Admin? <a href="/">User Login</a></p>
-                <p>or sign up with:</p>
-                
-
-                <button type="button" class="btn btn-link btn-floating mx-1">
-                    <i class="fab fa-google"></i>
-                </button>
+    <div id="" class=".error">
+        <% if (databaseError.length>0){ %>
+            <div class="alert alert-danger d-flex justify-content-center align-items-center  sticky-top z-1  "
+                role="alert">
+                <%= databaseError %>
             </div>
-        </section>
-
-        
+            <% } %>
     </div>
-</div>
+    <div id="" class=".error">
+        <% if (emailError.length>0){ %>
+            <div class="alert alert-danger d-flex justify-content-center align-items-center  sticky-top z-1  "
+                role="alert">
+                <%= emailError %>
+            </div>
+            <% } %>
+    </div>
+    <div id="" class=".error">
+        <% if (passwordError.length>0){ %>
+            <div class="alert alert-danger d-flex justify-content-center align-items-center  sticky-top z-1  "
+                role="alert">
+                <%= passwordError %>
+            </div>
+            <% } %>
+    </div>
+
+
+
+
+
+
+
+
     
+    <div class="bg-light  ">
+        <div class="d-flex justify-content-center pt-5 text-primary">
+            <h1><u>ADMIN LOGIN</u></h1>
+        </div>
+
+
+
+
+        <div class="p-5 container container-fluid d-flex justify-content-center ">
+            <section class="  ">
+                <form action="login" method="post">
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="email" id="form2Example1" class="form-control" name="Email" required />
+                        <label class="form-label" for="form2Example1">Email address</label>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="form2Example2" class="form-control" name="Password" required />
+                        <label class="form-label" for="form2Example2">Password</label>
+                    </div>
+
+                    <!-- Submit button -->
+                    <div>
+                        <button type="button submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+                    </div>
+
+
+
+                </form>
+                <!-- Register buttons -->
+                <div class="text-center">
+                    <p>Not an Admin? <a href="/">User Login</a></p>
+                    <p>or sign up with:</p>
+
+
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-google"></i>
+                    </button>
+                </div>
+            </section>
+
+
+        </div>
+    </div>
+
+    
+    <script>
+        // Select all elements with the class 'alert'
+        const alertElements = document.querySelectorAll('.alert');
+
+        // Loop through each alert element
+        alertElements.forEach(alertElement => {
+            // Set a timeout to add the 'd-none' class after 3000 milliseconds (3 seconds)
+            setTimeout(() => {
+                alertElement.classList.add('d-none');
+            }, 3000);
+        });
+
+    </script>
+
 
 
 

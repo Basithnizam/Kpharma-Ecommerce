@@ -6,15 +6,17 @@
         <h1 class='fw-bold d-flex justify-content-center'>Add Product</h1>
 
 
-        <form method="post" enctype="multipart/form-data" action="/admin/addProduct">
+        <form method="post" enctype="multipart/form-data" id="form" action="/admin/addProduct">
           <div class="form-group">
             <label for="exampleFormControlInput1">Product Name</label>
-            <input name="productName" type="text" class="form-control border border-dark" id="exampleFormControlInput1"
-              placeholder="Product Name" required>
+            <input name="productName" type="text" onblur="validateName()" class="form-control border border-dark"
+              id="productName" placeholder="Product Name" required>
+            <span id="productNameValidationMessage" class="text-danger"></span>
           </div>
           <div class="form-group">
             <label for="exampleFormControlSelect1">Category</label>
-            <select name="category" class="form-select border border-dark" aria-label="Default select example" required>
+            <select name="category" id="category" onchange="validateCategory()" onblur="validateCategory()"
+              class="form-select border border-dark" aria-label="Default select example" required>
               <option selected>Select the Category</option>
               <% data.forEach(function(datas,index) { %>
 
@@ -25,30 +27,52 @@
                 <% }); %>
 
             </select>
+            <span id="categoryValidationMessage" class="text-danger"></span>
           </div>
           <div class="form-group">
             <label for="exampleFormControlInput1">Price</label>
-            <input name="productPrice" type="number" class="form-control border border-dark"
-              id="exampleFormControlInput1" placeholder="Enter the price in rupees" required>
+            <input name="productPrice" type="number" onblur="validatePrice()" onchange="validatePrice()"
+              class="form-control border border-dark" id="productPrice" placeholder="Enter the price in rupees"
+              required>
+            <div id="priceValidationMessage" class="text-danger"></div>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlInput1">In Stock</label>
-            <input name="inStock" type="number" class="form-control border border-dark"
-                id="exampleFormControlInput1" placeholder="Enter the stock">
+            <label for="productMrp">MRP</label>
+            <input name="productMrp" type="number" onblur="validateMrp()" class="form-control border border-dark"
+              id="productMrp" placeholder="Enter the MRP in rupees" required>
+            <div id="mrpValidationMessage" class="text-danger"></div>
+          </div>
+          <div class="form-group">
+            <label for="inStock">In Stock</label>
+            <input name="inStock" type="number" onchange="validateStock()" class="form-control border border-dark"
+              id="inStock" placeholder="Enter the stock">
+            <div id="stockValidationMessage" class="text-danger"></div>
           </div>
           <div class="form-group">
             <label for="exampleFormControlTextarea1">Description </label>
-            <textarea name="description" class="form-control border border-dark" id="exampleFormControlTextarea1"
-              rows="3" required></textarea>
+            <textarea name="description" onblur="validateDescription() " class="form-control border border-dark"
+              id="exampleFormControlTextarea1" rows="3" required></textarea>
+            <div id="descriptionValidationMessage" class="text-danger"></div>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlInput1">Product Image</label>
-            <input name="productImage" type="file" class="form-control border border-dark" id="exampleFormControlInput1"
-              placeholder="Image of the product" required>
+            <label for="imageInput">Product Image</label>
+            <input name="" type="file" onblur="" class="form-control border border-dark" id="imageInput"
+              placeholder="Image of the product" accept="image/*" required onblur="validateImage()"
+              onclick="resetInput()" onchange="previewImage(this); validateImage()">
+            <div id="imageValidationMessage" class="text-danger"></div>
+
+
+            <img id="imagePreview" class="p-1 m1" onerror="hideImg()" style="max-width: 100%; max-height: 200px;">
+            <div id="cropBtn" class="d-none d-flex justify-content-center"><button class="btn-warning" type="button"
+                onclick="cropBtn()">crop</button></div>
+            <i class="fa-regular fa-image fa-2xl  p-5 m-5" id="defaultIcon"></i>
+
+
           </div>
           <div class="form-group py-3">
 
-            <input type="submit" class="btn btn-primary form-control border border-dark" id="exampleFormControlInput1">
+            <input type="submit" onclick="return submitForm()" class="btn btn-primary form-control border border-dark"
+              id="exampleFormControlInput1">
           </div>
 
         </form>
@@ -56,6 +80,316 @@
       </div>
     </div>
   </div>
+
+  <script>
+
+  </script>
+
+  <script>
+    const corpBtn = document.getElementById('cropBtn')
+    let cropper
+    let image
+    const submitBtn = document.getElementById('exampleFormControlInput1')
+
+
+    function validateName() { // fn to validate Product Name
+      var productNameInput = document.getElementById('productName');
+      var productName = productNameInput.value.trim();
+      var validationMessage = document.getElementById('productNameValidationMessage');
+      var nameRegex = /^[a-zA-Z0-9\s]+$/;
+      if (productName.length === 0) {
+        validationMessage.innerText = 'Product name cannot be empty.';
+        productNameInput.style.border = '1px solid red';
+        return false;
+      } else if (productNameInput.value[0] === ' ') {
+        validationMessage.innerText = 'Romove the Space  from the begining ';
+        productNameInput.style.border = '1px solid red';
+        return false;
+      } else if (!nameRegex.test(productName)) {
+        validationMessage.innerText = 'Special characters in the product name.';
+        productNameInput.style.border = '1px solid red';
+        return false;
+      } else {
+        validationMessage.innerText = '';
+        productNameInput.style.border = '';
+        return true;
+      }
+    }
+    function validateCategory() {
+      // Get the category select element
+      var categorySelect = document.getElementById('category');
+
+      // Get the selected option value
+      var selectedCategory = categorySelect.value;
+
+      // Get the element to display validation message
+      var validationMessage = document.getElementById('categoryValidationMessage');
+
+      // Check if a category is selected (assuming an initial "Select the Category" option)
+      if (selectedCategory === 'Select the Category') {
+        // Display an error message
+        validationMessage.innerText = 'Please select a category.';
+        categorySelect.style.border = '1px solid red';
+        return false;
+      } else {
+        // Clear the validation message
+        validationMessage.innerText = '';
+        categorySelect.style.border = '';
+        return true;
+      }
+    }
+    function validatePrice() {
+
+
+      var priceInput = document.getElementById('productPrice');
+      var productPrice = priceInput.value.trim();
+
+      // Get the element to display validation message
+      var validationMessage = document.getElementById('priceValidationMessage');
+
+      // Check if the product price is empty, not a valid number, or negative
+      if (productPrice.length === 0) {
+        validationMessage.innerText = 'Please enter the Price.';
+        priceInput.style.border = '1px solid red';
+        return false;
+
+      } else if (parseFloat(productPrice) < 0) {
+        // Display an error message
+        validationMessage.innerText = 'Please enter a non-negative price.';
+        priceInput.style.border = '1px solid red';
+        return false;
+      } else {
+        // Clear the validation message
+        validationMessage.innerText = '';
+        priceInput.style.border = '';
+        if (productMrp.length !== 0) {
+          validateMrp()
+        }
+        return true;
+      }
+    }
+    function validateMrp() {
+      var priceInput = document.getElementById('productPrice');
+      var mrpInput = document.getElementById('productMrp');
+      var productPrice = priceInput.value.trim();
+      var productMrp = mrpInput.value.trim();
+
+      // Get the element to display validation message
+      var validationMessage = document.getElementById('mrpValidationMessage');
+
+      // Check if the product MRP is empty, not a valid number, negative, or less than the price
+      if (productMrp.length === 0) {
+        validationMessage.innerText = 'Please enter  MRP';
+        mrpInput.style.border = '1px solid red';
+        return false;
+      } else if (parseFloat(productMrp) < 0) {
+        validationMessage.innerText = 'Please enter Non-negative number';
+        mrpInput.style.border = '1px solid red';
+        return false;
+      } else if (parseFloat(productMrp) < parseFloat(productPrice)) {
+        validationMessage.innerText = 'Please enter a  MRP greater than or equal to the price.';
+        mrpInput.style.border = '1px solid red';
+        return false;
+      } else {
+        // Clear the validation message
+        validationMessage.innerText = '';
+        mrpInput.style.border = '';
+        return true;
+      }
+    }
+    function validateStock() {
+      var stockInput = document.getElementById('inStock');
+      var inStockValue = stockInput.value.trim();
+      var validationMessage = document.getElementById('stockValidationMessage');
+
+      if (inStockValue.length === 0) {
+        validationMessage.innerText = 'Please enter the Stock';
+        stockInput.style.border = '1px solid red';
+      } else if (isNaN(inStockValue) || parseFloat(inStockValue) < 0) {
+        validationMessage.innerText = 'Please enter a valid non-negative stock value.';
+        stockInput.style.border = '1px solid red';
+        return false;
+      } else {
+        validationMessage.innerText = '';
+        stockInput.style.border = '';
+        return true;
+      }
+    }
+    function validateDescription() {
+      // Get the "Description" textarea element
+      var descriptionTextarea = document.getElementById('exampleFormControlTextarea1');
+
+      // Get the value of the textarea
+      var descriptionValue = descriptionTextarea.value.trim();
+
+      // Get the element to display validation message
+      var validationMessage = document.getElementById('descriptionValidationMessage');
+
+      // Check if the textarea is empty
+      if (descriptionValue.length === 0) {
+        // Display an error message
+        validationMessage.innerText = 'Please enter a description.';
+        descriptionTextarea.style.border = '1px solid red';
+        return false;
+      } else if (descriptionValue.length > 250) {
+        // Display an error message for exceeding the maximum length
+        validationMessage.innerText = 'Description should not exceed 250 characters.';
+        descriptionTextarea.style.border = '1px solid red';
+        return false;
+      } else {
+        // Clear the validation message
+        validationMessage.innerText = '';
+        descriptionTextarea.style.border = '';
+        return true;
+      }
+    }
+    function resetInput() {
+
+      var imageInput = document.getElementById('imageInput');
+      imageInput.value = ''
+    }
+    function validateImage() {
+      // Get the "Product Image" input element
+      var imageInput = document.getElementById('imageInput');
+      var allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']
+
+      // Get the selected file
+      var selectedFile = imageInput.files[0];
+
+      // Get the element to display validation message
+      var validationMessage = document.getElementById('imageValidationMessage');
+
+      // Check if a file has been selected
+      if (!selectedFile) {
+        // Display an error message
+        validationMessage.innerText = 'Please select an image file.';
+        imageInput.style.border = '1px solid red';
+        return false;
+      } else {
+        var fileType = imageInput.files[0].type;
+        if (!allowedFileTypes.includes(fileType)) {
+          validationMessage.innerText = 'Invalid file type. Please select a valid image (JPEG, PNG, GIF).';
+          imageInput.style.border = '1px solid red';
+          return false;
+        } else {
+          // Clear the validation message
+          validationMessage.innerText = '';
+          imageInput.style.border = '';
+          return true;
+        }
+      }
+
+    }
+
+    function hideImg() {
+      const imagePreview = document.getElementById('imagePreview');
+      imagePreview.style.display = "none";
+    }
+    function previewImage(input) {
+      if (cropper) {
+        cropper.destroy()
+      }
+      var allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']
+      const imagePreview = document.getElementById('imagePreview');
+      const defaultIcon = document.getElementById('defaultIcon');
+      defaultIcon.style.display = 'none'; // Hide the default icon
+      var fileType = imageInput.files[0].type;
+      if (!allowedFileTypes.includes(fileType)){
+        corpBtn.classList.add('d-none')
+        return false
+
+      }else{
+      corpBtn.classList.remove('d-none')
+      }
+      submitBtn.disabled = true;
+
+
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.readAsDataURL(input.files[0]);
+
+        reader.onload = function (e) {
+          imagePreview.src = e.target.result;
+          cropper = new Cropper(imagePreview, {
+            aspectRatio: 5 / 3,
+            viewMode: 2,
+            zoomable: false,
+            minCropBoxWidth: 100,
+            minCropBoxHeight: 60,
+          })
+        };
+      } else {
+        imagePreview.src = '#'; // Clear the image if no file is selected
+        defaultIcon.style.display = 'block'; // Show the default icon
+      }
+    }
+    function cropBtn() {
+      corpBtn.classList.add('d-none')
+      submitBtn.disabled = false;
+
+
+      imagePreview.src = cropper.getCroppedCanvas().toDataURL("image/png");
+      cropper.getCroppedCanvas().toBlob(blob => {
+        image = blob
+      })
+      cropper.destroy()
+    }
+
+
+    function submitForm() {
+      event.preventDefault();
+      let isValidateName = validateName()
+      let isValidateCategory = validateCategory()
+      let isValidatePrice = validatePrice()
+      let isValidateMrp = validateMrp()
+      let isValidateStock = validateStock()
+      let isValidateDescription = validateDescription()
+      let isvalidateImage = validateImage()
+
+      if (isValidateName && isValidateCategory && isValidatePrice && isValidateMrp && isValidateStock && isValidateDescription && isvalidateImage) {
+        console.log('I am going to excecute fetch')
+        const productform = document.getElementById('form')
+        let formData = new FormData(productform)
+        console.log('image',image)
+      if(image){
+        var fileName = imageInput.value.split('\\').pop();
+        formData.append('productImage',image,fileName)
+      }
+
+        fetch('/admin/addProduct', {
+          method: 'POST',
+          body: formData
+        })
+        .then(res=>{
+          if(!res.ok){
+            alert('Unexpected Error!')
+            
+          }
+          return res.json();
+        })
+        .then(data=>{
+          if(data.success){
+            alert('Product Added Successfully')
+            window.location.href = '/admin/product';
+          }
+        })
+        .catch(error =>{
+          console.error(error)
+          alert('Unexpected Error!')
+        })
+
+      } else {
+        console.log('There is a validation error')
+        return false
+      }
+
+
+
+
+    }
+  </script>
+
+
 
 
   <%-include('../layouts/adminPartials/footer.ejs') %>

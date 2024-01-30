@@ -1,54 +1,259 @@
 <%-include('../layouts/adminPartials/adminHeader.ejs') %>
 
-<div class=" d-flex justify-content-center  " style="min-height: 100vh;">
-        
+  <div class=" d-flex justify-content-center  " style="min-height: 100vh;">
 
-    <section class="col-6 flex-column bg-light rounded border border-warning p-2 m-5" style="height: max-content; box-shadow: 8.10521px 12.15782px 8.10521px 1.01315px rgba(0, 0, 0, 0.50);">
-        <% if (categories) { %>
-            <form class="row d-flex justify-content-center" action="/admin/editCategory/<%= categories._id %>" method="post">
-        <% } else { %>
-            <form class="row d-flex justify-content-center" action="/admin/editCategory/<%= catId %>" method="post">
-        <% } %>
-    
-        <div class="d-flex justify-content-center">
-            <h1 class="font-bold">Add Category</h1>
+
+    <div style="min-height: 100vh; ">
+
+      <div class="container">
+        <div class="row">
+            <div class="d-flex justify-content-center p-5"><h1 class="fw-bold"><u>EDIT CATEGORY</u></h1></div>
+          <form method="" id="catForm" enctype="multipart/form-data" action="">
+            <div class="form-group">
+              <label for="category">Category Name</label>
+              <input name="category" value="<%= categories.category %>" onblur="validateCatName()" type="text" class=" form-control border border-dark"
+                id="category" placeholder="Category Name" required>
+              <span id="catNameValidationMessage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+              <label for="catDescription">Description </label>
+              <textarea name="catDescirption" onblur="validateDescription()" class="form-control border border-dark"
+                id="catDescription" placeholder="Category Description" rows="3" required><%= categories.catDescirption %></textarea>
+              <span id="descriptionValidationMessage" class="text-danger">
+            </div>
         </div>
-    
+        <div class="form-group">
+          <label for="imageInput">Product Image</label>
+          <input name="" type="file" accept="image/*" class="form-control border border-dark" id="imageInput"
+            placeholder="Image of the product" required onchange="previewImage(this);" onblur="validateImage()">
+          <span id="imageValidationMessage" class="text-danger"> </span><br>
+          <img id="imagePreview" class="p-1 m1" src="/images/uploads/categoryImages/<%= categories.categoryImage %>"  onerror="hideImg()" style="max-width: 100%; max-height: 200px;">
+          <i class="fa-regular fa-image fa-2xl  p-5 m-5" id="defaultIcon"></i>
+        </div>
+        <div>
+          <button type="button" id="cropBtn" class="d-none" onclick="cropImage()">Corp</button>
+        </div>
         <div class="form-group py-3">
-            <label for="exampleInputEmail1" class="py-3 px-2 fw-bold">CATEGORY</label><br>
-    
-            <% if (!categories) { %>
-                <span id="elementToHide" class="px-5 text-danger fw-bold">Category Name already exists</span>
-            <% } %>
-    
-            <% if (categories) { %>
-                <input type="text" class="form-control" name="category" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= categories.category %>"
-                    placeholder="Enter New Category">
-            <% } else { %>
-                <input type="text" class="form-control" name="category" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= newCategory %>"
-                    placeholder="Enter New Category">
-            <% } %>
+          <input type="submit" class="btn btn-primary form-control border border-dark" onclick="return submitForm()"
+            id="exampleFormControlInput1">
         </div>
-        <div class="d-flex justify-content-center">
-            <button type="submit" class="btn bg-success rounded-pill px-5 fw-bold mt-3 border border-dark">Submit</button>
-        </div>
+
         </form>
-    
-        <script>
-            // Get a reference to the element you want to hide
-            const elementToHide = document.getElementById('elementToHide');
-    
-            // Use setTimeout to hide the element after 3 seconds
-            setTimeout(function() {
-                elementToHide.style.display = 'none'; // Hide the element
-            }, 2000); // 3000 milliseconds (3 seconds)
-        </script>
-    </section>
-    
+      </div>
+    </div>
 
 
-    
-    
-</div>
+  </div>
 
-<%-include('../layouts/adminPartials/footer.ejs') %>
+
+
+  <script>
+    const category = document.getElementById('category')//category Name
+    const catDescription = document.getElementById('catDescription') //category description
+    let imageInput = document.getElementById('imageInput') // Image input box
+    const imagePreview = document.getElementById('imagePreview');
+    const cropBtn = document.getElementById('cropBtn')
+    var categoryNameInput = document.getElementById('category');// Category Name input
+    var descriptionInput = document.getElementById('catDescription');//Category Description
+    var validationMessage = document.getElementById('catNameValidationMessage');
+
+
+    let cropper  
+    let croppedDataUrl
+    let image 
+    // let formData = new FormData()
+
+    function validateCatName() {
+      var categoryName = categoryNameInput.value.trim();
+
+      var nameRegex = /^[a-zA-Z0-9]+$/;
+
+      // Check if the category name is empty or doesn't match the regex
+      if (categoryName.length < 3) {
+        validationMessage.innerText = 'Please Use Min 3 Chara';
+        categoryNameInput.style.border = '1px solid red';
+        return false;
+      } else if (categoryName.length > 15) {
+        validationMessage.innerText = 'Please Use Max 15 chara';
+        categoryNameInput.style.border = '1px solid red';
+        return false;
+      } else if (!nameRegex.test(categoryName)) {
+        validationMessage.innerText = 'Space & Special chara are not allowed';
+        categoryNameInput.style.border = '1px solid red';
+        return false;
+      } else if (categoryName[0] === ' ') {
+        validationMessage.innerText = 'Space in the  beginning';
+        categoryNameInput.style.border = '1px solid red';
+        return false;
+      } else {
+        validationMessage.innerText = '';
+        categoryNameInput.style.border = '';
+        return true;
+      }
+    }
+    function validateDescription() {
+
+      var description = descriptionInput.value.trim();
+      var validationMessage = document.getElementById('descriptionValidationMessage');
+      if (description.length === 0) {
+        validationMessage.innerText = 'Please provide a description.';
+        descriptionInput.style.border = '1px solid red';
+        return false;
+      } else if (description.length > 250) {
+        validationMessage.innerText = 'Description should not exceed 250 characters.';
+        descriptionInput.style.border = '1px solid red';
+        return false;
+      } else {
+        validationMessage.innerText = '';
+        descriptionInput.style.border = '';
+        return true;
+      }
+    }
+    function validateImage() {
+      var imageInput = document.getElementById('imageInput');
+      var validationMessage = document.getElementById('imageValidationMessage');
+      var allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']; // Add or modify allowed file types
+
+      // Check if a file is selected
+      
+
+      // Check the file type
+      if(imageInput.files.length !== 0){
+      var fileType = imageInput.files[0].type;
+      if (!allowedFileTypes.includes(fileType)) {
+        validationMessage.innerText = 'Invalid file type. Please select a valid image (JPEG, PNG, GIF).';
+        imageInput.style.border = '1px solid red';
+        return false;
+      }}
+
+      // Reset validation messages and borders if everything is valid
+      validationMessage.innerText = '';
+      imageInput.style.border = '';
+      return true;
+    }
+
+    function hideImg() {
+      imagePreview.style.display = "none";
+
+    }
+    function previewImage(input) {
+
+
+      const defaultIcon = document.getElementById('defaultIcon');
+      cropBtn.classList.remove('d-none')
+      let file = input.files[0]
+      if (file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+          imagePreview.src = e.target.result;
+          defaultIcon.style.display = 'none'; // Hide the default icon
+          cropper = new Cropper(imagePreview, {
+            aspectRatio: 1,
+            viewMode: 2,
+            zoomable: false
+          })
+        };
+
+      } else {
+        imagePreview.src = '#'; // Clear the image if no file is selected
+        defaultIcon.style.display = 'block'; // Show the default icon
+
+      }
+    }
+    function cropImage() {
+      
+      croppedDataUrl = cropper.getCroppedCanvas().toDataURL('.image/jpeg');
+      cropper.getCroppedCanvas().toBlob(blob => {
+        image = blob;
+        
+      })
+      imagePreview.style.display = "block";
+      imagePreview.src = croppedDataUrl
+      cropper.destroy()
+      cropBtn.classList.add('d-none')
+    }
+    
+    function submitForm() {
+      event.preventDefault();
+      var isValidateCatName = validateCatName();
+      console.log('isValidateImage', isValidateCatName)
+      var isValidateDescription = validateDescription();
+      console.log('isValidateImage', isValidateDescription)
+      var isValidateImage = validateImage();
+      console.log('isValidateImage', isValidateImage)
+
+      if (isValidateCatName && isValidateDescription && isValidateImage) {
+        console.log('Inside if ')
+        console.log('Inside else ')
+        let catForm = document.getElementById('catForm')
+        let formData = new FormData(catForm)
+        if(imageInput.value){
+            var fileName = imageInput.value.split('\\').pop();
+            // Add the image Blob to FormData
+            formData.append('categoryImage', image, fileName);
+        }
+        console.log('formData:', formData)
+        fetch('/admin/editCategory/<%= categories._id %>', {
+          method: 'POST',
+          body: formData
+        })
+          .then(res => {
+            try {
+              console.log('res.status',res.status)
+              if (!res.ok) {
+              // Handle network errors or non-OK status
+              alert('Error! Please try again');
+              
+            }
+            return res.json(); // Assuming the response is JSON
+              
+            } catch (error) {
+              console.log(error)
+              
+            }
+            
+          })
+          .then(data => {
+            console.log('Then is a initiated')
+            console.log('data.error',data.error)
+            
+            if (data.error) {
+              // Assuming the server sends a JSON object with a 'status' property
+              console.log('Category already exists');
+              validationMessage.innerText = data.error; // Assuming there's an 'error' property in the response
+              setTimeout(() => {
+                validationMessage.innerText = '';
+              }, 10000);
+            } else if(data.sucess){
+              
+              alert('Success. The Category is updated')
+              window.location.href = '/admin/category';
+            }
+          })
+          .catch(error => {
+            // Handle any errors that occurred during the fetch
+            console.error('Error:', error);
+          });
+        
+      }else {
+
+        
+          return false
+
+      }
+      
+
+
+
+    }
+  </script>
+
+
+
+
+
+
+  </div>
+
+  <%-include('../layouts/adminPartials/footer.ejs') %>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/cart.css">  
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1em' viewBox='0 0 576 512'%3E%3Cpath fill='%2300FF00' d='M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z'/%3E%3C/svg%3E" type="image/svg+xml">
+     
+</head>
+
+<%-include('../layouts/userPartials/userHeader.ejs') %>
+<!-- ______________________________________testing____________________________________________ -->
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+
+<section class='snippet-body'>
+    <div class="card mt-5">
+        <% if(false){ %>
+        <div class="row">
+            <div class="col-md-8 cart">
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <h4><b>Shopping Cart</b></h4>
+                        </div>
+                        <div class="col d-flex pe-5
+                         justify-content-end text-right text-muted">3 items</div>
+                    </div>
+                 </div>
+                 <div class="d-flex align-items-center "> <span><a class="backarrow" href="/home"  >&leftarrow;</a></span> <span class="text-muted">Back to shop</span></div>
+                
+
+                
+                    <div class="row border-top border-bottom">
+                        <div class="row main align-items-center">
+                            <div class="col-2"><img class="img-fluid" style="width: 3.5rem;" src="/images/uploads/categoryImages/1700898624232-The-Best-FREE-AI-Image-Generators-of-2023-Tested-and-Compared.jpg"></div>
+                            <div class="col">
+                                <div class="row text-muted">Shirt</div>
+                                <div class="row">Cotton T-shirt</div>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-danger p-1">-</button> <a  class="border p-2">1</a><button class="btn btn-outline-success p-1">+</button>
+                            </div>
+                            <div class="col d-flex justify-content-around" >&#8377; 44.00 <a href="/userCart/adjasdlf" onclick="remove()" class="close" aria-label="Close">&#10005;</a></div>
+                        </div>
+                    </div>
+
+                    
+                
+                
+                
+                
+            </div>
+            <div class="col-md-4 summary">
+                <div>
+                    <h5><b>Summary</b></h5>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col" style="padding-left:0;">ITEMS 3</div>
+                    <div class="col text-right">&#8377; 132.00</div>
+                </div>
+                <form style="padding: 2vh 0;">
+                    <p>SHIPPING</p>
+                    <select>
+                        <option class="text-muted">Standard-Delivery- &#8377;5.00</option>
+                    </select>
+                    <p>GIVE CODE</p>
+                    <input class="code" id="promoCode" placeholder="Enter your code" >
+                </form>
+                <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                    <div class="col">TOTAL PRICE</div>
+                    <div class="col text-right">&#8377; 137.00</div>
+                </div>
+                <button class="checkOut">CHECKOUT</button>
+            </div>
+        </div>
+        <%}else{ %>
+
+            <div class="row">
+                <div class="col-md-8 cart">
+                    <div class="title">
+                        <div class="row">
+                            <div class="col">
+                                <h4><b>Shopping Cart</b></h4>
+                            </div>
+                            <div class="col d-flex pe-5 justify-content-end text-right text-muted">0 items</div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center "> <span><a class="backarrow" href="/home"  >&leftarrow;</a></span> <span class="text-muted">Back to shop</span></div>
+            
+                    <div class="alert alert-info text-center" role="alert">
+                        <p class="h2">Your shopping cart is empty.</p>
+                    </div>
+            
+                    
+                </div>
+            
+                <div class="col-md-4 summary">
+                    <div>
+                        <h5><b>Summary</b></h5>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col" style="padding-left:0;">ITEMS 0</div>
+                        <div class="col text-right">&#8377; 0.00</div>
+                    </div>
+                    <form style="padding: 2vh 0;">
+                        <p>SHIPPING</p>
+                        <select>
+                            <option class="text-muted">Standard-Delivery- &#8377;5.00</option>
+                        </select>
+                        <p>GIVE CODE</p>
+                        <input class="code" id="promoCode" placeholder="Enter your code">
+                    </form>
+                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                        <div class="col">TOTAL PRICE</div>
+                        <div class="col text-right">&#8377; 0.00</div>
+                    </div>
+                    <button class="checkOut" disabled>CHECKOUT</button>
+                </div>
+            </div>
+            
+                        
+
+            <%} %>
+
+    </div>
+    
+
+</section>
+
+<script>
+    $(document).ready(function () {
+        // Function to update the total price of the product based on quantity
+        function updateProductTotal(row) {
+            var quantity = parseInt($(row).find('.quantity').val());
+            var price = parseFloat($(row).find('.price').text().replace('₹', '').trim());
+            var productTotal = quantity * price;
+            $(row).find('.product-total').text('₹' + productTotal.toFixed(2));
+        }
+
+        // Function to update the summary section
+        function updateSummary() {
+            var totalItems = 0;
+            var totalPrice = 0;
+
+            $('.cart-row').each(function () {
+                var quantity = parseInt($(this).find('.quantity').val());
+                totalItems += quantity;
+
+                var productTotal = parseFloat($(this).find('.product-total').text().replace('₹', '').trim());
+                totalPrice += productTotal;
+            });
+
+            var shippingCost = parseFloat($('.shipping-option').val().replace('₹', '').trim());
+            var orderTotal = totalPrice + shippingCost;
+
+            $('.total-items').text('ITEMS ' + totalItems);
+            $('.total-price').text('₹' + totalPrice.toFixed(2));
+            $('.order-total').text('₹' + orderTotal.toFixed(2));
+        }
+
+        // Initial update
+        updateSummary();
+
+        // Event handler for quantity change
+        $('.quantity').on('input', function () {
+            var row = $(this).closest('.cart-row');
+            updateProductTotal(row);
+            updateSummary();
+        });
+
+        // Event handler for shipping option change
+        $('.shipping-option').on('change', function () {
+            updateSummary();
+        });
+    });
+</script>
+<!-- ______________________________________testing____________________________________________ -->
+
+
+
+
+<%-include('../layouts/userPartials/userFooter.ejs') %>

@@ -1,16 +1,29 @@
-<%-include('../layouts/adminPartials/adminHeader.ejs') %>
+
+
+<% if(productUpdateError.length>0){ %>
+    <div class="alert alert-danger sticky-top d-flex justify-content-center fw-bold" id="alert">
+        <%= productUpdateError %>
+    </div>
+    <% }%>
+
+        <% if(productUpadate.length>0){ %>
+            <div class="alert alert-success sticky-top d-flex justify-content-center fw-bold " id="success">
+                <%= productUpadate %>
+            </div>
+            <% }%>
+  
+  <%-include('../layouts/adminPartials/adminHeader.ejs') %>
 
 
 
 
 
 
-<script
-src="https://code.jquery.com/jquery-3.7.1.js"
-integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<!-- ----------------------SEARCH QUARY------------------------- -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- ----------------------SEARCH QUARY------------------------- -->
     <script>
         $(document).ready(function () {
             $("#myInput").on("change", function () {
@@ -21,8 +34,29 @@ crossorigin="anonymous"></script>
             });
         });
     </script>
-<!-- --------------------------Filter QUARY--------------------------- -->
-<script>
+    <!-- --------------------------Filter QUARY--------------------------- -->
+
+    <script>
+        $(document).ready(function () {
+            $('#categoryFilter').on('change', function () {
+                const selectedCategoryId = $(this).val();
+                console.log('fromFilter :', selectedCategoryId);
+
+                $('tbody tr').each(function () {
+                    const productCategoryId = $(this).find('.category-id').text();
+                    console.log('formRow:', productCategoryId);
+                    if (!selectedCategoryId || productCategoryId === selectedCategoryId) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+
+    </script>
+
+    <!-- <script>
     $(document).ready(function() {
       $('#categoryFilter').on('change', function() {
         const selectedCategoryId = $(this).val();
@@ -39,9 +73,9 @@ crossorigin="anonymous"></script>
         });
       });
     });
-  </script>
+  </script> -->
 
-<!-- <script>
+    <!-- <script>
     $(document).ready(function () {
         $("#categoryFilter").on("change", function () {
             var selectedCategory = $(this).val();
@@ -60,52 +94,57 @@ crossorigin="anonymous"></script>
 
 
 
+    
+
+                    <div class="container   my-5">
+
+                        <div class=" row">
 
 
-    <div class="container   my-5">
-
-        <div class=" row">
-            
-
-            <div class="text-light p-3 fw-bold d-flex justify-content-center">
-                <h1 class="fw-bold text-dark h1">PRODUCT LIST</h1>
-            </div>
-            <div class="">
-                <input class="form-control border border-primary bg-dark text-light " id="myInput" type="text" placeholder="Search..">
-            </div>
-
-            
-            <br>
-            
-
-            <div class="table-responsive">
 
 
-                <table class="table table-dark table-bordered my-2 bg-dark  ">
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th >Product Name</th>
-
-
-                            <th>
-
-
-                            <div class="container ">
-                                <div class="form-group">
-                                    <label for="categoryFilter">Filter by Category:</label>
-                                    <select class="form-control" id="categoryFilter">
-
-                                        <% products.forEach(function(datas,index) { %>
-                                            
-                                        <option value="datas.category.category"><%= datas.category.category %></option>
-
-                                        <% }); %>
-                                        
-                                    </select>
-                                </div>
+                            <div class="text-light p-3 fw-bold d-flex justify-content-center">
+                                <h1 class="fw-bold text-dark h1">PRODUCT LIST</h1>
                             </div>
-                            
+                            <div class="">
+                                <input class="form-control border border-primary bg-dark text-light " id="myInput"
+                                    type="text" placeholder="Search..">
+                            </div>
+
+
+                            <br>
+
+
+                            <div class="table-responsive">
+
+
+                                <table class="table table-dark table-bordered my-2 bg-dark  ">
+                                    <thead>
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>Product Name</th>
+
+
+                                            <th>
+
+
+                                                <div class="container ">
+                                                    <div class="form-group">
+                                                        <label for="categoryFilter">Category:</label>
+                                                        <select class="" id="categoryFilter">
+                                                            <option value="">Select</option>
+
+                                                            <% data.forEach(function(datas,index) { %>
+
+                                                                <option value="">
+                                                                    <%= datas.category %>
+                                                                </option>
+
+                                                                <% }); %>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
 
 
 
@@ -114,58 +153,92 @@ crossorigin="anonymous"></script>
 
 
 
-                            </th>
-                            <th>Price</th>
-                            <th>Instock</th>
-                            <th class="d-flex justify-content-center"><a href="/admin/addProduct" class="btn btn-warning ">Add Products </a></th>
-                        </tr>
-                    </thead>
-                    <tbody id="myTable">
-                        <% products.forEach(function(datas,index) { %>
-                        <tr>
-                           
 
-                            <td><img class="img-fluid " style="width: 40px; height: 50px;" src="/images/uploads/productImages/<%= datas.productImage %>" alt="image Not avilable"></td>
-                            <td><%= datas.productName %></td>
-                            <td class="category-id" id="category-id" ><%= datas.category.category %></td>
-                            <td><%= datas.productPrice %></td>
-                            <td><%= datas.inStock %></td>
-                            <td class="d-flex justify-content-center p-2 ">
-                                
-                                <a class="btn bg-primary img-fluid"  href="/admin/viewProduct/<%= datas._id %>"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a class="btn bg-warning mx-1" href="/admin/editProduct/<%= datas._id %>""><i class="fas fa-edit"></i></a>
-                                <a class="btn btn-danger" href="/admin/deleteProduct/<%= datas._id %>""><i class="fa fa-trash" aria-hidden="true"></i></a>
-                            </td>
-                           
-                        </tr>
-                        <% }); %>
+                                            </th>
+                                            <th>Price</th>
+                                            <th>Instock</th>
+                                            <th class="d-flex justify-content-center"><a href="/admin/addProduct"
+                                                    class="btn btn-warning ">Add Products </a></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="myTable">
+                                        <% products.forEach(function(datas,index) { %>
+                                            <tr>
+
+
+                                                <td><img class="img-fluid  " style="width: 5rem;"
+                                                        src="/images/uploads/productImages/<%= datas.productImage %>"
+                                                        alt="image Not avilable"></td>
+                                                <td>
+                                                    <%= datas.productName %>
+                                                </td>
+                                                <td class="category-id" id="">
+                                                    <%= datas.category.category %>
+                                                </td>
+                                                <td>
+                                                    <%= datas.productPrice %>
+                                                </td>
+                                                <td>
+                                                    <%= datas.inStock %>
+                                                </td>
+                                                <td class="d-flex justify-content-center p-2 ">
+
+                                                    <a class="btn bg-primary img-fluid"
+                                                        href="/admin/viewProduct/<%= datas._id %>"><i class="fa fa-eye"
+                                                            aria-hidden="true"></i></a>
+                                                    <a class="btn bg-warning mx-1"
+                                                        href="/admin/editProduct/<%= datas._id %>""><i class=" fas
+                                                        fa-edit"></i></a>
+                                                    <a class="btn btn-danger"
+                                                        href="/admin/deleteProduct/<%= datas._id %>""><i class=" fa
+                                                        fa-trash" aria-hidden="true"></i></a>
+                                                </td>
+
+                                            </tr>
+                                            <% }); %>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+
+                    
+
+
+                    <script>
+                        const alertDiv = document.getElementById('alert')
+                    
+                        const hideAlert = () => {
+                            alertDiv.classList.add('d-none')
+                        }
+                        setTimeout(hideAlert, 3000)
+                        const successDiv = document.getElementById('success')
+                    
+                        const hidesuccess = () => {
+                            successDiv.classList.add('d-none')
+                        }
+                        setTimeout(hidesuccess, 3000)
                         
-                    </tbody>
-                </table>
-            </div>
+                    </script>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-        
-        </div>
-    </div>
-        
-
-
-
-
-
-
-
-        <%-include('../layouts/adminPartials/footer.ejs') %>
+                    <%-include('../layouts/adminPartials/footer.ejs') %>

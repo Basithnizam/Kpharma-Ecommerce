@@ -1,23 +1,24 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let logger = require('morgan');
 const connectMongo = require('./configuration/configDb.js');
 const session = require('express-session');
 require('dotenv').config()
-var flash = require('connect-flash');
+let flash = require('connect-flash');
 
 
 
 
 
 
-var adminRouter = require('./routes/admin');
-var usersRouter = require('./routes/users');
+
+let adminRouter = require('./routes/admin');
+let usersRouter = require('./routes/users');
 // const { Collection } = require('mongoose');
 
-var app = express();
+let app = express();
 
 
 //MongoDB Connection

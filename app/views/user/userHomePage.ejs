@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>USER</title>
+  <link rel="icon" href="/images/uploads/productImages/1700585014922-person_2.jpg" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='1em' viewBox='0 0 576 512'%3E%3Cpath fill='%23FF69B4' d='M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z'/%3E%3C/svg%3E" type="image/svg+xml">
+
+  </head>
+<%-include('../layouts/userPartials/userHeader.ejs') %>
+
+
+  <%-include('../layouts/userPartials/userBanner.ejs') %>
+
+    <div class="container container-fluid">
+      <div class="row py-5">
+        <div class="d-flex justify-content-center pt-5">
+          <h1 class="fw-bold">CATEGORIES</h1>
+        </div>
+        <div class="d-flex justify-content-center ">
+
+          <div class="scroll-box  p-5 " style="height:80vh; ; overflow: hidden; background-color: rgba(0, 0, 0, 0.4);">
+
+            <div class="content " style="height: 100%; overflow: auto; ; scrollbar-color: #888 #555;">
+
+              <!-- _______________________________________________Category Box_____________________________________________________ -->
+
+
+              <div class=" d-flex p-4 justify-content-center ">
+                <h2>CATEGORIES</h2>
+              </div>
+
+              <div>
+                <div class="row row-cols-1 row-cols-md-3 g-4 mb-3 container-fluid">
+
+
+                  <% CATEGORY.forEach(function(category){ %>
+                    <div class="col ">
+                      <div class="card bg-primary h-100">
+                        <img src="/images/uploads/categoryImages/<%= category.categoryImage %>" class="card-img-top"
+                          alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title"><u>
+                              <%= category.category %>
+                            </u> </h5>
+                          <p class="card-text">
+                            <%= category.catDescirption %>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <% }); %>
+                </div>
+              </div>
+
+
+
+
+
+
+
+              <!-- _______________________________________________Category Box_____________________________________________________ -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+
+    <section style="background-color: #eee;">
+      <div class="container py-5">
+        <div class="row justify-content-center mb-3">
+          <% PRODUCT.forEach(function(product){ %>
+            <div class="col-md-12 col-xl-10">
+              <div class="card shadow-0 border rounded-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                      <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                        <a href="/Product/<%= product._id%>">
+                          <img src="/images/uploads/productImages/<%= product.productImage %>" class="w-100" />
+                        </a>
+
+                        <a href="#!">
+                          <div class="hover-overlay">
+                            <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-6">
+                      <h5>
+                        <%= product.productName%>
+                      </h5>
+                      <div class="d-flex flex-row">
+                        <div class="text-danger mb-1 me-2">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <span>310</span>
+                      </div>
+                      <div class="mt-1 mb-0 text-muted small">
+                        <span>100% cotton</span>
+                        <span class="text-primary"> • </span>
+                        <span>Light weight</span>
+                        <span class="text-primary"> • </span>
+                        <span>Best finish<br /></span>
+                      </div>
+                      <div class="mb-2 text-muted small">
+                        <span>Unique design</span>
+                        <span class="text-primary"> • </span>
+                        <span>For men</span>
+                        <span class="text-primary"> • </span>
+                        <span>Casual<br /></span>
+                      </div>
+                      <p class="text-truncate mb-4 mb-md-0">
+                        <%= product.description%>
+                      </p>
+                    </div>
+                    <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                      <div class="d-flex flex-row align-items-center mb-1">
+                        <h4 class="mb-1 me-1">₹<%= product.productPrice%>
+                        </h4>
+                        <span class="text-danger"><s>₹<%= product.productMrp%></s></span>
+                      </div>
+                      <h6 class="text-success">Free shipping</h6>
+                      <div class="d-flex flex-column mt-4">
+                        <a href="/Product/<%= product._id%>" class="btn btn-primary btn-sm"
+                          type="button">Details</button></a>
+                        <a class="btn btn-outline-primary btn-sm mt-2" href="/addToCart/<%= product._id%>">Add to
+                          Cart</a>
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <% }); %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <div class="col-md-12 col-xl-10">
+                <div class="card shadow-0 border rounded-3">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                        <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                          <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp"
+                            class="w-100" />
+                          <a href="#!">
+                            <div class="hover-overlay">
+                              <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-lg-6 col-xl-6">
+                        <h5>Quant trident shirts</h5>
+                        <div class="d-flex flex-row">
+                          <div class="text-danger mb-1 me-2">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                          </div>
+                          <span>310</span>
+                        </div>
+                        <div class="mt-1 mb-0 text-muted small">
+                          <span>100% cotton</span>
+                          <span class="text-primary"> • </span>
+                          <span>Light weight</span>
+                          <span class="text-primary"> • </span>
+                          <span>Best finish<br /></span>
+                        </div>
+                        <div class="mb-2 text-muted small">
+                          <span>Unique design</span>
+                          <span class="text-primary"> • </span>
+                          <span>For men</span>
+                          <span class="text-primary"> • </span>
+                          <span>Casual<br /></span>
+                        </div>
+                        <p class="text-truncate mb-4 mb-md-0">
+                          There are many variations of passages of Lorem Ipsum available, but the
+                          majority have suffered alteration in some form, by injected humour, or
+                          randomised words which don't look even slightly believable.
+                        </p>
+                      </div>
+                      <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                        <div class="d-flex flex-row align-items-center mb-1">
+                          <h4 class="mb-1 me-1">₹13.99</h4>
+                          <span class="text-danger"><s>₹20.99</s></span>
+                        </div>
+                        <h6 class="text-success">Free shipping</h6>
+                        <div class="d-flex flex-column mt-4">
+                          <button class="btn btn-primary btn-sm" type="button">Details</button>
+                          <button class="btn btn-outline-primary btn-sm mt-2" type="button">
+                            Add to wishlist
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="row justify-content-center mb-3">
+          <div class="col-md-12 col-xl-10">
+            <div class="card shadow-0 border rounded-3">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                    <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/new/img(4).webp"
+                        class="w-100" />
+                      <a href="#!">
+                        <div class="hover-overlay">
+                          <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-6 col-xl-6">
+                    <h5>Quant olap shirts</h5>
+                    <div class="d-flex flex-row">
+                      <div class="text-danger mb-1 me-2">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                      <span>289</span>
+                    </div>
+                    <div class="mt-1 mb-0 text-muted small">
+                      <span>100% cotton</span>
+                      <span class="text-primary"> • </span>
+                      <span>Light weight</span>
+                      <span class="text-primary"> • </span>
+                      <span>Best finish<br /></span>
+                    </div>
+                    <div class="mb-2 text-muted small">
+                      <span>Unique design</span>
+                      <span class="text-primary"> • </span>
+                      <span>For men</span>
+                      <span class="text-primary"> • </span>
+                      <span>Casual<br /></span>
+                    </div>
+                    <p class="text-truncate mb-4 mb-md-0">
+                      There are many variations of passages of Lorem Ipsum available, but the
+                      majority have suffered alteration in some form, by injected humour, or
+                      randomised words which don't look even slightly believable.
+                    </p>
+                  </div>
+                  <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                    <div class="d-flex flex-row align-items-center mb-1">
+                      <h4 class="mb-1 me-1">₹14.99</h4>
+                      <span class="text-danger"><s>₹21.99</s></span>
+                    </div>
+                    <h6 class="text-success">Free shipping</h6>
+                    <div class="d-flex flex-column mt-4">
+                      <button class="btn btn-primary btn-sm" type="button">Details</button>
+                      <button class="btn btn-outline-primary btn-sm mt-2" type="button">
+                        Add to wishlist
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-12 col-xl-10">
+            <div class="card shadow-0 border rounded-3">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                    <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/new/img(5).webp"
+                        class="w-100" />
+                      <a href="#!">
+                        <div class="hover-overlay">
+                          <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-6 col-xl-6">
+                    <h5>Quant ruybi shirts</h5>
+                    <div class="d-flex flex-row">
+                      <div class="text-danger mb-1 me-2">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                      <span>145</span>
+                    </div>
+                    <div class="mt-1 mb-0 text-muted small">
+                      <span>100% cotton</span>
+                      <span class="text-primary"> • </span>
+                      <span>Light weight</span>
+                      <span class="text-primary"> • </span>
+                      <span>Best finish<br /></span>
+                    </div>
+                    <div class="mb-2 text-muted small">
+                      <span>Unique design</span>
+                      <span class="text-primary"> • </span>
+                      <span>For women</span>
+                      <span class="text-primary"> • </span>
+                      <span>Casual<br /></span>
+                    </div>
+                    <p class="text-truncate mb-4 mb-md-0">
+                      There are many variations of passages of Lorem Ipsum available, but the
+                      majority have suffered alteration in some form, by injected humour, or
+                      randomised words which don't look even slightly believable.
+                    </p>
+                  </div>
+                  <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                    <div class="d-flex flex-row align-items-center mb-1">
+                      <h4 class="mb-1 me-1">₹17.99</h4>
+                      <span class="text-danger"><s>₹25.99</s></span>
+                    </div>
+                    <h6 class="text-success">Free shipping</h6>
+                    <div class="d-flex flex-column mt-4">
+                      <button class="btn btn-primary btn-sm" type="button">Details</button>
+                      <button class="btn btn-outline-primary btn-sm mt-2" type="button">
+                        Add to wishlist
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    
+
+
+
+      <%-include('../layouts/userPartials/userFooter.ejs') %>

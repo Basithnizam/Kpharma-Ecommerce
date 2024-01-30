@@ -1,0 +1,67 @@
+
+
+<body >
+
+    <!-- ___________________HEADER START__________________ -->
+
+    <nav class="navbar navbar-expand-lg  navbar-light   border shadow" style="background-color: #E5CFC5;">
+        <div class="container-fluid">
+            <!-- -________________________SIDEDRAWER START____________________________ -->
+            
+            <%-include('../layouts/userPartials/userSideDrawer.ejs') %>
+            <!-- -________________________SIDEDRAWER END____________________________ -->
+
+            <a class="navbar-brand" href="/home"><img width="200" class="img-fluid" src="/images/Logologo1.png"
+                    alt="LOGO not found"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="d-flex flex-fill px-4" action="/search">
+                    <input class="form-control me-2" name="keyWord" type="search" placeholder="Search" aria-label="Search" required>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 pe-5">
+                    <li class="nav-item">
+                        <a class="nav-link"  href="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/help">Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/userCart/adjasdlf">Cart</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" data-bs-placement="bottom-end" aria-expanded="false">
+                            USERNAME
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li class="d-flex justify-content-center"><a class="dropdown-item " href="/userProfile"><i class="fa-solid fa-user px-1"></i>Profile</a></li>
+                            <li class="d-flex justify-content-center"><a class="dropdown-item" href="/orders"><i class='fas fa-bullhorn px-1'></i> Oders</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="d-flex justify-content-center flex-fill p-1"><a class="btn btn-outline-danger d-flex flex-fill justify-content-center" href="/logout">LogOut</a></li>
+                            
+                        </ul>
+                    </li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </nav>
+
+
+
+
+   
+
+    <!-- ___________________HEADER END__________________ -->
+
+    <!-- ________________________BODY START__________________________ -->
+
+    <div style="min-height: 90vh; background-color: #EE9393; width: 100%; padding-bottom: 50px;">

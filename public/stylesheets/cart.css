@@ -1,0 +1,172 @@
+.snippet-body {
+    
+    min-height: 100vh;
+    vertical-align: middle;
+    display: flex;
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.title {
+    margin-bottom: 5vh;
+}
+.card {
+    margin: auto;
+    max-width: 950px;
+    width: 90%;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1rem;
+    border: transparent;
+}
+@media(max-width:767px) {
+    .card {
+        margin: 3vh auto;
+    }
+}
+.cart {
+    background-color: #fff;
+    padding: 4vh 5vh;
+    border-bottom-left-radius: 1rem;
+    border-top-left-radius: 1rem;
+}
+@media(max-width:767px) {
+    .cart {
+        padding: 4vh;
+        border-bottom-left-radius: unset;
+        border-top-right-radius: 1rem;
+    }
+}
+.summary {
+    background-color: #ddd;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding: 4vh;
+    color: rgb(65, 65, 65);
+}
+@media(max-width:767px) {
+    .summary {
+        border-top-right-radius: unset;
+        border-bottom-left-radius: 1rem;
+    }
+}
+.summary .col-2 {
+    padding: 0;
+}
+
+.summary .col-10 {
+    padding: 0;
+}
+.row {
+    margin: 0;
+}
+.title b {
+    font-size: 1.5rem;
+}
+
+.main {
+    margin: 0;
+    padding: 2vh 0;
+    width: 100%;
+}
+.col-2,
+.col {
+    padding: 0 1vh;
+}
+a {
+    padding: 0 1vh;
+}
+.close {
+    position: relative; /* Add relative positioning to create a reference for the tooltip */
+    margin-left: auto;
+    font-size: 0.7rem;
+    text-decoration: none;
+    color: black;
+    transition: color 0.3s; /* Optional: Add a smooth transition effect */
+}
+
+.close:hover {
+    color: red;
+}
+
+.close::before {
+    content: 'Remove'; /* Set the default content of the tooltip */
+    position: absolute;
+    top: -30px; /* Adjust the top position of the tooltip */
+    left: 50%; /* Center the tooltip horizontally */
+    transform: translateX(-50%); /* Center the tooltip horizontally */
+    background-color: #fff; /* Set background color */
+    padding: 5px;
+    border: 1px solid #ccc; /* Add a border for better visibility */
+    border-radius: 3px; /* Optional: Add border-radius for rounded corners */
+    visibility: hidden; /* Initially hide the tooltip */
+    opacity: 0; /* Initially set opacity to 0 */
+    transition: opacity 0.3s, visibility 0.3s; /* Optional: Add a smooth transition effect */
+}
+
+.close:hover::before {
+    visibility: visible; /* Show the tooltip on hover */
+    opacity: 1; /* Fade in the tooltip on hover */
+}
+
+.back-to-shop {
+    margin-top: 4.5rem;
+
+}
+select {
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1.5vh 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+}
+.code {
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+}
+.checkOut {
+    background-color: #000;
+    border-color: #000;
+    color: white;
+    width: 100%;
+    font-size: 0.7rem;
+    margin-top: 4vh;
+    padding: 1vh;
+    border-radius: 0;
+}
+
+.checkOut:focus {
+    box-shadow: none;
+    outline: none;
+    box-shadow: none;
+    color: white;
+    -webkit-box-shadow: none;
+
+    transition: none;
+}
+
+.checkOut:hover {
+    color: white;
+}
+#promoCode {
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0.253), rgba(255, 255, 255, 0.185)), url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: center;
+}
+.backarrow {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    color: black;
+    transition:  0.3s;
+}
+
+.backarrow:hover {
+    font-size: 1.5rem;
+    color: red;
+}

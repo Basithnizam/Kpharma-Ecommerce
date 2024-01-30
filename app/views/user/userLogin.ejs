@@ -10,59 +10,110 @@
 
 </head>
 
-<body >
+<body>
+    <% if(blockedError.length>0){ %>
+        <div id="alert" class="alert alert-danger sticky-top d-flex justify-content-center fw-bold ">
+            <%= blockedError %>
+        </div>
+        <% }%>
+    <% if(signUpSuccess.length>0){ %>
+        <div id="alert" class="alert alert-success sticky-top d-flex justify-content-center fw-bold ">
+            <%= signUpSuccess %>
+        </div>
+        <% }%>
 
-    <div class="row border ">
-        <div class="col-3 p-4 d-flex"><%-include('../layouts/userPartials/userSideDrawer.ejs') %></div>
-        <div class="col-5 d-flex justify-content-center"><img style="height: 50px; margin: 1rem; " src="images/KPharmakPharmaLogo.png" alt="LOGO"></div>
-        <div class="col-4 py-4 d-flex justify-content-end"><a href="/signUp"><button type="button" class="btn btn-primary">SignUp</button></a></div>
-        
-    </div>
-    <div></div>
-    <div class="bg-light  ">
-        <div class="d-flex justify-content-center pt-5 text-primary"><h1><u>USER LOGIN</u></h1></div>
+            <div class="row border ">
+                <div class="col-3 p-4 d-flex"><%-include('../layouts/userPartials/userSideDrawer.ejs') %></div>
+                <div class="col-5 d-flex justify-content-center"><img style="height: 50px; margin: 1rem; "
+                        src="images/KPharmakPharmaLogo.png" alt="LOGO"></div>
+                <div class="col-4 py-4 d-flex justify-content-end"><a href="/signUp"><button type="button"
+                            class="btn btn-primary">SignUp</button></a></div>
 
-
-
-
-    <div class="p-5 container container-fluid d-flex justify-content-center " >
-        <section class="  " >
-            <form action="/login" method="post">
-                <!-- Email input -->
-                <div class="form-outline mb-4">
-                    <input type="email" id="form2Example1" class="form-control" name="email" required />
-                    <label class="form-label" for="form2Example1">Email address</label>
-                </div>
-    
-                <!-- Password input -->
-                <div class="form-outline mb-4">
-                    <input type="password" id="form2Example2" class="form-control" name="password" required />
-                    <label class="form-label" for="form2Example2">Password</label>
-                </div>
-    
-                
-    
-                <!-- Submit button -->
-                <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
-    
-                
-            </form>
-            <!-- Register buttons -->
-            <div class="text-center">
-                <p>Not a member? <a href="/signUp">Register</a></p>
-                <p>or sign up with:</p>
-                
-
-                <button type="button" class="btn btn-link btn-floating mx-1">
-                    <i class="fab fa-google"></i>
-                </button>
             </div>
-        </section>
+            <div></div>
+            <div class="bg-light  ">
+                <div class="d-flex justify-content-center pt-5 text-primary">
+                    <h1><u>USER LOGIN</u></h1>
+                </div>
 
-        
-    </div>
-</div>
-    
+
+
+
+                <div class="p-5 container container-fluid d-flex justify-content-center ">
+                    <section class="  ">
+                        <form action="/login" method="post">
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <input type="email" id="form2Example1" class="form-control" name="email" required />
+                                <label class="form-label" for="form2Example1">Email address</label>
+                                <% if(emailError.length>0){ %>
+                                    <span class=" error">
+                                        <p class="text-danger">
+                                            <%= emailError %>
+                                        </p>
+                                    </span>
+
+                                    <% } %>
+
+                            </div>
+
+                            <!-- Password input -->
+                            <div class="form-outline mb-4">
+                                <input type="password" id="form2Example2" class="form-control" name="password"
+                                    required />
+                                <label class="form-label" for="form2Example2">Password</label>
+                                <% if(passwordError.length>0){ %>
+                                    <span class=" error">
+                                        <p class="text-danger">
+                                            <%= passwordError %>
+                                        </p>
+                                    </span>
+
+                                    <% } %>
+
+                            </div>
+
+
+
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+
+
+                        </form>
+                        <!-- Register buttons -->
+                        <div class="text-center">
+                            <p>Not a member? <a href="/signUp">Register</a></p>
+                            <p>or sign up with:</p>
+
+
+                            <button type="button" class="btn btn-link btn-floating mx-1">
+                                <i class="fab fa-google"></i>
+                            </button>
+                        </div>
+                    </section>
+
+
+                </div>
+            </div>
+            <script>
+                const alertDiv = document.getElementById('alert')
+
+                const hideAlert = () => {
+                    alertDiv.classList.add('d-none')
+                }
+                setTimeout(hideAlert, 3000)
+
+                const errorSpans = document.querySelectorAll('span.error');
+                const hideErrorSpans = () => {
+                    errorSpans.forEach((span) => {
+                        span.style.display = 'none'; // Hide the span
+                    });
+                };
+                etTimeout(hideErrorSpans, 3000);
+            </script>
+
+
+
 
 
 
